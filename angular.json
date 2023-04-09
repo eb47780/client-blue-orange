@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ecommerce-store": {
+    "client-blue-orange": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ecommerce-store",
+            "outputPath": "dist/client-blue-orange",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -32,7 +32,8 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/font-awesome/css/font-awesome.css" 
             ],
             "scripts": []
           },
@@ -73,10 +74,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ecommerce-store:build:production"
+              "browserTarget": "client-blue-orange:build:production"
             },
             "development": {
-              "browserTarget": "ecommerce-store:build:development"
+              "browserTarget": "client-blue-orange:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +85,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ecommerce-store:build"
+            "browserTarget": "client-blue-orange:build"
           }
         },
         "test": {
@@ -101,7 +102,8 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/font-awesome/css/font-awesome.css" 
             ],
             "scripts": []
           }

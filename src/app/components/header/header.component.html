@@ -1,16 +1,16 @@
-<mat-toolbar class="justify-between max-w-7xl mx-auto border-x">
+<mat-toolbar class="max-w-7xl mx-auto border-x">
   <a routerLink="home">Blue Orange</a>
+  <span class="example-spacer"></span>
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon
       [matBadge]="itemsQuantity"
       [matBadgeHidden]="!itemsQuantity"
       matBadgeColor="warn"
-      >shopping_cart</mat-icon
-    >
+      >shopping_cart</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
     <div class="p-3 divide-y divide-solid">
-      <div class="pb-3 flex justify-between">
+      <div class="pb-3">
         <span class="mr-16">{{ cart.items.length }} items</span>
         <a routerLink="cart">View Cart</a>
       </div>
@@ -45,4 +45,27 @@
       </div>
     </div>
   </mat-menu>
+  <span class="spacer"></span>
+  <button *ngIf="cart.items.length" [matMenuTriggerFor]="profile">
+    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">account_circle</mat-icon>
+  <mat-menu #profile="matMenu">
+      <div class="pb-3">
+        <div class="flex justify-between py-3 font-light">
+          <span class="font-bold not-italic">{{
+            'Profile'
+          }}</span>
+        </div> 
+      </div>
+      <div class="pb-3">
+        <div class="flex justify-between py-3 font-light">
+          <span class="not-italic">{{
+            'Log out'
+          }}</span> 
+        </div> 
+      </div>
+  </mat-menu>
+</button>
+<button *ngIf="!cart.items.length">
+  <a routerLink="login">Log In</a> 
+</button>
 </mat-toolbar>

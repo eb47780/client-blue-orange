@@ -22,4 +22,5 @@ export class StoreService {
       `${STORE_BASE_URL}/categories/v1`
     );
   }
+  
 }

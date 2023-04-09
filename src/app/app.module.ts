@@ -19,6 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatInputModule} from '@angular/material/input';
 
 import { ProductsHeaderComponent } from './pages/home/components/products-header/products-header.component';
 import { ProductBoxComponent } from './pages/home/components/product-box/product-box.component';
@@ -28,6 +29,9 @@ import { CartComponent } from './pages/cart/cart.component';
 import { CartService } from './services/cart.service';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreService } from './services/store.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+
 
 @NgModule({
   declarations: [
@@ -38,6 +42,7 @@ import { StoreService } from './services/store.service';
     FiltersComponent,
     HeaderComponent,
     CartComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,8 +60,10 @@ import { StoreService } from './services/store.service';
     MatTableModule,
     MatBadgeModule,
     MatSnackBarModule,
+    MatInputModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [CartService, StoreService],
   bootstrap: [AppComponent],

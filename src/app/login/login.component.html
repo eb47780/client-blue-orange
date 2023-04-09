@@ -1,0 +1,59 @@
+<mat-card>
+  <mat-card-content
+  class="min-h-full max-w-7xl mx-auto border-x"
+  >
+    <div class="header">
+      <P>Sign Into Your Account </P>
+    </div>
+    <form (ngSubmit)="onLogin()" name="loginForm" [formGroup]="loginForm">
+      <div class="emailInput">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            formControlName="email"
+            matInput
+            placeholder="Enter email address" required
+          />
+          <mat-error *ngIf="!loginForm.controls['email'].valid">
+              Email is required
+            </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <span>
+          <a class="text-link" class="aLink" routerLink="/auth/forgot-password">Forgot Password?</a>
+        </span>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input formControlName="password" matInput [type]=" hide ? 'password' : 'text'" required />
+          <button  mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide Password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>
+              {{hide ? 'visibility_off' : 'visibility'}}
+          </mat-icon>
+      </button>
+      <mat-error *ngIf="!loginForm.controls['password'].valid">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+      </div>
+      <div class="error">
+      <button mat-raised-button color="primary" routerLink="home" color="primary">
+        <i class="fa fa-spinner fa-spin" *ngIf="loading"> </i>
+        &nbsp; {{loading? 'loading' : 'Login'}} &nbsp;
+      </button>
+      </div>
+      <div class="error">
+      <mat-error *ngIf="showError" class="sz-10">
+        {{message}}
+      </mat-error>
+    </div>
+    </form>
+    <div class="error">
+    <div class="button-row">
+      <a>Create New Account</a>
+    </div>
+  </div>
+  </mat-card-content>
+</mat-card>
