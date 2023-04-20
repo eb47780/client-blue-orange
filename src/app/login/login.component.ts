@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
-import { StoreService } from '../services/store.service';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { User, UserToken } from '../models/user.model';
 
 
 @Component({
@@ -15,7 +13,6 @@ import { User, UserToken } from '../models/user.model';
 export class LoginComponent implements OnInit {
 
   hide: boolean = false;
-  user: UserToken;
   showError: boolean = false;
   message:string = '';
   loading: boolean = false;
