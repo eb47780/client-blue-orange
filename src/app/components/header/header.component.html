@@ -46,20 +46,26 @@
     </div>
   </mat-menu>
   <span class="spacer"></span>
-  <button *ngIf="cart.items.length" [matMenuTriggerFor]="profile">
+  <button  *ngIf="(user$ | async) as user"  [matMenuTriggerFor]="profile">
     <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">account_circle</mat-icon>
   <mat-menu #profile="matMenu">
-      <div class="pb-3">
+      <div class="pb-3 divide-y divide-solid">
         <div class="flex justify-between py-3 font-light">
-        </div> 
+          Username:
+          <span class="font-bold not-italic">{{
+            user.name
+          }}</span>
+        </div>
       </div>
-      <div class="pb-3">
-        <div class="flex justify-between py-3 font-light">
-        </div> 
-      </div>
+      <div class="pb-3 divide-y divide-solid">
+        <div class="flex justify-between font-light mb-2">
+       <button (click)="navigateToProfile(user.id)"> <span class="mr-22">Profile</span></button> <br>
+       <button (click)="logout()"><b>Log out</b></button>
+       </div>
+      </div> 
   </mat-menu>
 </button>
-<button *ngIf="!cart.items.length">
-  <a routerLink="login">Log In</a> 
+<button *ngIf="!(user$ | async) as user">
+  <a class="pb-3 flex justify-between py-3 font-light" routerLink="login">Sign in</a> 
 </button>
 </mat-toolbar>

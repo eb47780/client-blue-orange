@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { User } from '../models/user.model';
 import { JwtHelperService } from "@auth0/angular-jwt";
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +19,7 @@ export class AuthService {
         console.log(token)
         console.log('token: ' + token.access);
         localStorage.setItem('access', token.access);
+        localStorage.setItem('id', token.id);
         return token;
       })
     )
@@ -25,6 +27,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('access');
+    localStorage.removeItem('id');
   }
 
   register(user: User) {
@@ -36,7 +39,7 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(token);
   }
 
-  getUserId(): Observable<any>{
+  getUserId(): any {
     return of(localStorage.getItem('access')).pipe(
       switchMap((jwt: any) => of(this.jwtHelper.decodeToken(jwt)).pipe(
         map((jwt: any) => jwt.user.id)

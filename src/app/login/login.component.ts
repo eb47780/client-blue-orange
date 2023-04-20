@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+  
   }
 
   loginForm: FormGroup = this.fb.group({
@@ -32,7 +34,6 @@ export class LoginComponent implements OnInit {
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
-
   onLogin() {
     if (!this.loginForm.valid) {
       return;
@@ -41,10 +42,10 @@ export class LoginComponent implements OnInit {
       (async () => { 
         this.loading = true;
         await this.delay(1000);
-        this.authService.login(this.loginForm.value).subscribe(result=> {
-          localStorage.setItem('jwt',result['access']);
-          localStorage.setItem('id', result['id'])
-          this.router.navigate(['home'])
+        this.authService.login(this.loginForm.value).pipe(
+          map(token => window.location.href='http://localhost:4200/home')
+        ).subscribe( 
+        result=> {
           this._snackBar.open('Logged in successfully', 'Ok', {
             duration: 5000,
             });
@@ -56,7 +57,8 @@ export class LoginComponent implements OnInit {
             this.loading = false;
           }
         )
-      })();
+     })();
+      };
     }
   }
-}
+

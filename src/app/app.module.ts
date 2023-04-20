@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +32,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreService } from './services/store.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { CustomInterceptor } from './services/custom.interceptor';
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+import { UserComponent } from './pages/user/user.component';
 
 
 @NgModule({
@@ -43,6 +47,7 @@ import { LoginComponent } from './login/login.component';
     HeaderComponent,
     CartComponent,
     LoginComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +70,19 @@ import { LoginComponent } from './login/login.component';
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  providers: [CartService, StoreService],
+  providers: [
+    CartService,
+    StoreService,
+    JwtHelperService,
+    {
+      provide: HTTP_INTERCEPTORS, useClass: CustomInterceptor,
+      multi: true
+    },
+    { 
+      provide: JWT_OPTIONS,
+      useValue: JWT_OPTIONS
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

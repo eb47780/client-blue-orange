@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Category } from 'src/app/models/category.model';
 import { Product } from 'src/app/models/product.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { StoreService } from 'src/app/services/store.service';
 
@@ -25,12 +26,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private cartService: CartService,
     private storeService: StoreService,
+    private authService: AuthService,
   ) {}
 
 
   ngOnInit(): void {
     this.getProducts();
-    // console.log(this.userService.isAuthenticated())
+    console.log(this.authService.isAuthenticated())
   }
 
   onColumnsCountChange(colsNum: number): void {
