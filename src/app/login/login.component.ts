@@ -4,7 +4,7 @@ import { StoreService } from '../services/store.service';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { User } from '../models/user.model';
+import { User, UserToken } from '../models/user.model';
 
 
 @Component({
@@ -15,7 +15,7 @@ import { User } from '../models/user.model';
 export class LoginComponent implements OnInit {
 
   hide: boolean = false;
-  user: User;
+  user: UserToken;
   showError: boolean = false;
   message:string = '';
   loading: boolean = false;
@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
-
   onLogin() {
     if (!this.loginForm.valid) {
       return;
@@ -44,9 +43,10 @@ export class LoginComponent implements OnInit {
     else {
       (async () => { 
         this.loading = true;
-        await this.delay(1500);
+        await this.delay(1000);
         this.authService.login(this.loginForm.value).subscribe(result=> {
           localStorage.setItem('jwt',result['access']);
+          localStorage.setItem('id', result['id'])
           this.router.navigate(['home'])
           this._snackBar.open('Logged in successfully', 'Ok', {
             duration: 5000,
