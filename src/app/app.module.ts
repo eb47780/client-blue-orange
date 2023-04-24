@@ -21,6 +21,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatInputModule} from '@angular/material/input';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { ProductsHeaderComponent } from './pages/home/components/products-header/products-header.component';
 import { ProductBoxComponent } from './pages/home/components/product-box/product-box.component';
@@ -69,6 +70,7 @@ import { UserComponent } from './pages/user/user.component';
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatTabsModule
   ],
   providers: [
     CartService,

@@ -46,26 +46,27 @@
     </div>
   </mat-menu>
   <span class="spacer"></span>
-  <button  *ngIf="(user$ | async) as user"  [matMenuTriggerFor]="profile">
-    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">account_circle</mat-icon>
-  <mat-menu #profile="matMenu">
-      <div class="pb-3 divide-y divide-solid">
-        <div class="flex justify-between py-3 font-light">
-          Username:
-          <span class="font-bold not-italic">{{
-            user.name
-          }}</span>
-        </div>
+      <div class="flex items-center">
+        <ng-container *ngIf="user$ | async as user">
+          <button [matMenuTriggerFor]="profile" class="flex items-center">
+            <mat-icon class="text-gray-600" aria-hidden="false" aria-label="User account icon">account_circle</mat-icon>
+            <span class="ml-2 text-sm">{{ user.name }}</span>
+          </button>
+          <mat-menu #profile="matMenu" class="shadow-md">
+            <div class="py-4">
+              <button mat-menu-item (click)="navigateToProfile(user.id)">
+                <mat-icon class="text-gray-600" aria-hidden="false" aria-label="Profile icon">person</mat-icon>
+                <span class="ml-2">Profile</span>
+              </button>
+              <button mat-menu-item (click)="logout()">
+                <mat-icon class="text-gray-600" aria-hidden="false" aria-label="Logout icon">exit_to_app</mat-icon>
+                <span class="ml-2">Logout</span>
+              </button>
+            </div>
+          </mat-menu>
+        </ng-container>
+        <ng-container *ngIf="!(user$ | async)">
+          <a routerLink="login" class="ml-2 text-sm hover:text-gray-800 font-medium">Sign in</a>
+        </ng-container>
       </div>
-      <div class="pb-3 divide-y divide-solid">
-        <div class="flex justify-between font-light mb-2">
-       <button (click)="navigateToProfile(user.id)"> <span class="mr-22">Profile</span></button> <br>
-       <button (click)="logout()"><b>Log out</b></button>
-       </div>
-      </div> 
-  </mat-menu>
-</button>
-<button *ngIf="!(user$ | async) as user">
-  <a class="pb-3 flex justify-between py-3 font-light" routerLink="login">Sign in</a> 
-</button>
 </mat-toolbar>
