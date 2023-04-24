@@ -30,8 +30,14 @@ export class AuthService {
     localStorage.removeItem('id');
   }
 
-  register(user: User) {
-    return this.http.post<any>('http://localhost:8001/api/client/v1', user);
+  signup(data: any) {
+    delete data['confirmPassword'];
+    console.log(data);
+    return this.http.post<any>('http://localhost:8001/api/clients/v1', data).pipe(
+      map((result) => {
+        console.log(result);
+      })
+    )
   }
 
   isAuthenticated(): boolean {

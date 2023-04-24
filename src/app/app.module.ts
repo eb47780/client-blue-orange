@@ -36,6 +36,7 @@ import { LoginComponent } from './login/login.component';
 import { CustomInterceptor } from './services/custom.interceptor';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { UserComponent } from './pages/user/user.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { UserComponent } from './pages/user/user.component';
     CartComponent,
     LoginComponent,
     UserComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

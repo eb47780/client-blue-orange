@@ -4,6 +4,7 @@ import { CartComponent } from './pages/cart/cart.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './pages/user/user.component';
+import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  
+  {
+    path: 'signup',
+    component: SignupComponent,
   },
 
   { path: '', redirectTo: 'home', pathMatch: 'full' },

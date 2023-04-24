@@ -1,0 +1,84 @@
+<mat-card class="">
+  <mat-card-content
+    class="min-h-full max-w-8xl mx-auto border-x">
+    <div class="header">
+      <P>Create Account</P>
+    </div>
+    <form (ngSubmit)="onSignUp()" name="loginForm" [formGroup]="signupForm">
+      <div class="usernameInput">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Username</mat-label>
+          <input
+            formControlName="name"
+            matInput
+            placeholder="Enter username" required
+          />
+          <mat-error *ngIf="!signupForm.controls['name'].valid">
+              Username is required
+            </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="emailInput">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            formControlName="email"
+            matInput
+            placeholder="Enter email address" required
+          />
+          <mat-error *ngIf="!signupForm.controls['email'].valid">
+              Email is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="phoneInput">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Phone Number</mat-label>
+          <input
+            formControlName="phone"
+            matInput
+            placeholder="Enter phone number" required
+          />
+          <mat-error *ngIf="!signupForm.controls['phone'].valid">
+              Phonenumber is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input formControlName="password" matInput [type]=" !hide ? 'password' : 'text'" required />
+          <mat-error *ngIf="!signupForm.controls['password'].valid">
+            Password is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Confirm Password</mat-label>
+          <input formControlName="confirmPassword" matInput [type]=" !hide ? 'password' : 'text'" required />
+          <mat-error *ngIf="!signupForm.controls['confirmPassword'].valid">
+            Confirm Password is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="error">
+      <button mat-raised-button color="primary" routerLink="login" color="primary">
+        <i class="fa fa-spinner fa-spin" *ngIf="loading"> </i>
+        &nbsp; {{loading? 'loading' : 'Sign Up'}} &nbsp;
+      </button>
+      </div>
+      <div class="error">
+        <mat-error *ngIf="showError" class="sz-10">
+          {{message}}
+        </mat-error>
+      </div>
+    </form>
+    <div class="error">
+    <br>
+    <div class="button-row">
+      <span>Already have an account? <a routerLink="/login">Sign Up</a></span>
+    </div>
+  </div>
+  </mat-card-content>
+</mat-card>
