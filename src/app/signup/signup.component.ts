@@ -39,6 +39,7 @@ export class SignupComponent implements OnInit {
   
   onSignUp() {
     this.loading = true;
+    this.showError = false;
     if (this.signupForm.value.password !== this.signupForm.value.confirmPassword) {
       this.delay(1000);
       this.showError = true;
@@ -64,6 +65,7 @@ export class SignupComponent implements OnInit {
               this.showError = true;
               this.message = error.error.detail;
               this.loading = false;
+              
             }
           )
         })();

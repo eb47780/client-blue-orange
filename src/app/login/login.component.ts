@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
     else {
       (async () => { 
         this.loading = true;
+        this.showError = false;
         await this.delay(1000);
         this.authService.login(this.loginForm.value).pipe(
           map(token => window.location.href='http://localhost:4200/home')
