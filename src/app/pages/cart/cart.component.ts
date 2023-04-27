@@ -4,6 +4,9 @@ import { Cart, CartItem } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/services/cart.service';
 import { loadStripe } from '@stripe/stripe-js';
 import { Subscription } from 'rxjs';
+import { CheckoutService } from 'src/app/services/checkout.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cart',
@@ -22,7 +25,7 @@ export class CartComponent implements OnInit, OnDestroy {
   dataSource: CartItem[] = [];
   cartSubscription: Subscription | undefined;
 
-  constructor(private cartService: CartService, private http: HttpClient) {}
+  constructor(private cartService: CartService, private http: HttpClient, private checkoutService: CheckoutService, private authService: AuthService, private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.cartSubscription = this.cartService.cart.subscribe((_cart: Cart) => {
@@ -52,16 +55,18 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   onCheckout(): void {
-    this.http
-      .post('http://localhost:4242/checkout', {
-        items: this.cart.items,
-      })
-      .subscribe(async (res: any) => {
-        let stripe = await loadStripe('your token');
-        stripe?.redirectToCheckout({
-          sessionId: res.id,
-        });
+
+    if (this.authService.isAuthenticated()) {
+      window.location.href='http://localhost:4200/checkout' 
+    } else {
+      this._snackBar.open('Not authorized to complete checkout', 'Log In', {
+        duration: 10000,
+      }).onAction().subscribe(() => {
+         window.location.href='http://localhost:4200/login'
       });
+    }
+
+    
   }
 
   ngOnDestroy() {

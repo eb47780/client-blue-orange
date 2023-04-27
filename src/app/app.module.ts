@@ -22,6 +22,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatInputModule} from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { ProductsHeaderComponent } from './pages/home/components/products-header/products-header.component';
 import { ProductBoxComponent } from './pages/home/components/product-box/product-box.component';
@@ -31,12 +33,14 @@ import { CartComponent } from './pages/cart/cart.component';
 import { CartService } from './services/cart.service';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreService } from './services/store.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { CustomInterceptor } from './services/custom.interceptor';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { UserComponent } from './pages/user/user.component';
 import { SignupComponent } from './signup/signup.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { ConfirmAddressComponent } from './pages/checkout/confirm-address/confirm-address.component';
 
 
 @NgModule({
@@ -51,6 +55,9 @@ import { SignupComponent } from './signup/signup.component';
     LoginComponent,
     UserComponent,
     SignupComponent,
+    CheckoutComponent,
+    ConfirmAddressComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -69,10 +76,13 @@ import { SignupComponent } from './signup/signup.component';
     MatBadgeModule,
     MatSnackBarModule,
     MatInputModule,
+    MatDialogModule,
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatTabsModule
+    MatTabsModule,
+    FormsModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     CartService,

@@ -1,0 +1,184 @@
+<div class="bg-white">
+
+  <div class="flex">
+    <!-- Cart Items Section -->
+    <div class="w-1/2 bg-gray-100 p-8">
+      <h2 class="text-lg font-bold mb-4">Your Cart Items</h2>
+      <div *ngFor="let item of cartItems">
+        <ul class="divide-y divide-gray-200">
+          <li class="py-4 flex">
+            <div class="flex-shrink-0">
+              <img class="h-8 w-8" src="{{ item.product }}" alt="Product Image">
+            </div>
+            <div class="ml-6 flex-1 flex flex-col justify-between">
+              <div class="text-sm font-medium text-gray-900">
+                {{item.name}}
+              </div>
+              <div class="flex-1 flex justify-between items-end">
+                <p class="text-sm text-gray-500">Quantity: {{ item.quantity}}</p>
+                <p class="text-sm font-medium text-gray-900">{{ item.quantity * item.price | currency}} </p>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+     
+    </div>
+  <!-- Main content -->
+  <div class="flex justify-center items-center h-screen">    
+    <form class="bg-white shadow-md rounded-lg p-8 w-128" name="addressForm" [formGroup]="addressForm">
+      <header class="mb-8 flex justify-between items-center bg-white shadow-md py-4 px-8">
+        <div>
+          <a href="http://localhost:4200/cart" class="text-blue-600 hover:text-blue-800">Back to cart</a>
+        </div>
+      </header>
+      <!-- Address Section -->
+      <div class="mb-4" *ngIf="address">
+        <h2 class="text-lg font-bold mb-4 text-center">Address</h2>
+        <div class="flex flex-wrap -mx-2">
+          <div class="w-1/2 px-2 mb-4">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Street</mat-label>
+              <input matInput type="text" class="w-full" [(ngModel)]="address.street" formControlName="street" required/>
+            </mat-form-field>
+            <div class="error">
+            <mat-error *ngIf="!addressForm.controls['street'].valid">
+              Street is required
+            </mat-error>
+          </div>
+          </div>
+          <div class="w-1/2 px-2 mb-4">
+            <mat-form-field appearance="outline" class="w-full" >
+              <mat-label>Street Number</mat-label>
+              <input matInput type="text" class="w-full" [(ngModel)]="address.street_number"  formControlName="street_number" required/>
+            </mat-form-field>
+            <div class="error">
+            <mat-error *ngIf="!addressForm.controls['street_number'].valid">
+              Street Number is required
+            </mat-error>
+          </div>
+          </div>
+          <div class="w-1/2 px-2 mb-4">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>City</mat-label>
+              <input matInput type="text" class="w-full" [(ngModel)]="address.city" formControlName="city" required/>
+            </mat-form-field>
+            <div class="error">
+            <mat-error *ngIf="!addressForm.controls['city'].valid">
+              City is required
+            </mat-error>
+          </div>
+          </div>
+          <div class="w-1/2 px-2 mb-4">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Zipcode</mat-label>
+              <input matInput type="text" class="w-full" [(ngModel)]="address.zipcode" formControlName="zipcode" required/>
+            </mat-form-field>
+            <div class="error">
+            <mat-error *ngIf="!addressForm.controls['zipcode'].valid">
+              Zip Code is required
+            </mat-error>
+            </div>
+
+          </div>
+        </div>
+        <button (click)="confirmAddress()" mat-raised-button color="primary" class="ml-4" [disabled]="loading">
+          <mat-spinner *ngIf="loading" class="mat-spinner-inline"></mat-spinner>
+          <span *ngIf="!loading">Confirm Address</span>
+        </button>
+      </div>
+
+      <div class="mb-4" *ngIf="!address">
+        <h2 class="text-lg font-bold mb-4 text-center">Address</h2>
+        <div class="flex flex-wrap -mx-2">
+          <div class="w-1/2 px-2 mb-4">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Street</mat-label>
+              <input matInput type="text" class="w-full" formControlName="street" required/>
+            </mat-form-field>
+            <div class="error">
+            <mat-error *ngIf="!addressForm.controls['street'].valid">
+              Street is required
+            </mat-error>
+          </div>
+          </div>
+          <div class="w-1/2 px-2 mb-4">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Street Number</mat-label>
+              <input matInput type="text" class="w-full" formControlName="street_number" required/>
+            </mat-form-field>
+            <div class="error">
+            <mat-error *ngIf="!addressForm.controls['street_number'].valid">
+              Street Number is required
+            </mat-error>
+          </div>
+          </div>
+          <div class="w-1/2 px-2 mb-4">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>City</mat-label>
+              <input matInput type="text" class="w-full" formControlName="city" required/>
+            </mat-form-field>
+            <div class="error">
+            <mat-error *ngIf="!addressForm.controls['city'].valid">
+              City is required
+            </mat-error>
+          </div>
+          </div>
+          <div class="w-1/2 px-2 mb-4">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Zipcode</mat-label>
+              <input matInput type="text" class="w-full" formControlName="zipcode" required/>
+            </mat-form-field>
+            <div class="error">
+            <mat-error *ngIf="!addressForm.controls['zipcode'].valid">
+              Zip Code is required
+            </mat-error>
+          </div>
+          </div>
+        </div>
+        <button (click)="confirmAddress()" mat-raised-button color="primary" class="ml-4" [disabled]="loading">
+          <mat-spinner *ngIf="loading" class="mat-spinner-inline"></mat-spinner>
+          <span *ngIf="!loading">Confirm Address</span>
+        </button>
+        <div class="error">
+          <div class="error"></div>
+          <mat-error *ngIf="showError" class="sz-10">
+            {{message}}
+          </mat-error>
+        </div>
+      </div>
+       
+    
+      <div *ngIf="addressConfirmed" [@slideIn] class="slide-in">
+        <h2 class="text-lg font-bold mb-4 text-center">Card Details</h2>
+            <!-- Card components and checkout button go here -->
+          <!-- Card Details Section -->
+          <div class="mb-4">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Name on Card</mat-label>
+              <input matInput type="text" class="w-full">
+            </mat-form-field>
+          </div>
+          <div class="mb-4">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Card Number</mat-label>
+              <input matInput type="text" class="w-full">
+            </mat-form-field>
+          </div>
+          <div class="flex mb-4">
+            <mat-form-field appearance="outline" class="w-1/2 mr-2">
+              <mat-label>Expiration Date</mat-label>
+              <input matInput type="text" class="w-full">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-1/2 ml-2">
+              <mat-label>CVV</mat-label>
+              <input matInput type="text" class="w-full">
+            </mat-form-field>
+          </div>
+          <span><button mat-raised-button color="primary" class="w-full">Checkout</button></span>
+          
+        </div>
+    </form>
+  </div>
+</div>

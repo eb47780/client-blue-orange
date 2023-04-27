@@ -30,6 +30,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('access');
     localStorage.removeItem('id');
+    localStorage.removeItem('cart');
   }
 
   signup(data: any) {

@@ -9,7 +9,13 @@ import { Cart, CartItem } from '../models/cart.model';
 export class CartService {
   cart = new BehaviorSubject<Cart>({ items: [] });
 
-  constructor(private _snackBar: MatSnackBar) {}
+  constructor(private _snackBar: MatSnackBar) {
+    // Load cart data from local storage
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+      this.cart.next(JSON.parse(storedCart));
+    }
+  }
 
   addToCart(item: CartItem): void {
     const items = [...this.cart.value.items];
@@ -23,6 +29,9 @@ export class CartService {
 
     this.cart.next({ items });
     this._snackBar.open('1 item added to cart.', 'Ok', { duration: 3000 });
+
+    // Save cart data to local storage
+    localStorage.setItem('cart', JSON.stringify(this.cart.value));
   }
 
   removeFromCart(item: CartItem, updateCart = true): CartItem[] {
@@ -35,6 +44,9 @@ export class CartService {
       this._snackBar.open('1 item removed from cart.', 'Ok', {
         duration: 3000,
       });
+
+      // Save cart data to local storage
+      localStorage.setItem('cart', JSON.stringify(this.cart.value));
     }
 
     return filteredItems;
@@ -62,6 +74,9 @@ export class CartService {
     this._snackBar.open('1 item removed from cart.', 'Ok', {
       duration: 3000,
     });
+
+    // Save cart data to local storage
+    localStorage.setItem('cart', JSON.stringify(this.cart.value));
   }
 
   clearCart(): void {
@@ -69,6 +84,9 @@ export class CartService {
     this._snackBar.open('Cart is cleared.', 'Ok', {
       duration: 3000,
     });
+
+    // Remove cart data from local storage
+    localStorage.removeItem('cart');
   }
 
   getTotal(items: CartItem[]): number {
