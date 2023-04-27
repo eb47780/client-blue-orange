@@ -45,15 +45,11 @@ export class LoginComponent implements OnInit {
         this.authService.login(this.loginForm.value).pipe(
           map(token => window.location.href='http://localhost:4200/home')
         ).subscribe( 
-        result=> {
-          this._snackBar.open('Logged in successfully', 'Ok', {
-            duration: 5000,
-            });
-
+          result=> {
           },   
           (error) => {
             this.showError = true;
-            this.message = 'No active account found with the given credentials';
+            this.message = error.error.detail;
             this.loading = false;
           }
         )

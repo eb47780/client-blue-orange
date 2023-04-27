@@ -38,12 +38,11 @@ export class SignupComponent implements OnInit {
   }
   
   onSignUp() {
-    console.log(this.signupForm.value);
     this.loading = true;
     if (this.signupForm.value.password !== this.signupForm.value.confirmPassword) {
       this.delay(1000);
       this.showError = true;
-      this.message = 'Password should match with Confirm Password'
+      this.message = "Password and Confirm Password don't match"
       this.loading = false;
       return;
     }
@@ -53,25 +52,21 @@ export class SignupComponent implements OnInit {
       return;
     }
     else {
-      (async () => { 
-        this.loading = true;
-        await this.delay(1000);
-        this.authService.signup(this.signupForm.value).pipe(
-          map(token => window.location.href='http://localhost:4200/login')
-        ).subscribe( 
-          result=> {
-          this._snackBar.open('Account was created successfully', 'Ok', {
-            duration: 5000,
-            });
-
-          },   
-          (error) => {
-            this.showError = true;
-            this.message = 'Something went wrong!';
-            this.loading = false;
-          }
-        )
-     })();
+        (async () => {
+          await this.delay(1000);
+          this.authService.signup(this.signupForm.value).pipe(
+            map(result => this.loading=false)
+          ).subscribe(
+            result => {
+              // console.log(result);
+            },
+            (error) => {
+              this.showError = true;
+              this.message = error.error.detail;
+              this.loading = false;
+            }
+          )
+        })();
       };
     }
   }
