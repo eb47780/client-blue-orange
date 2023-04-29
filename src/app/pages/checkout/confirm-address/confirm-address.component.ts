@@ -8,7 +8,7 @@ import { Address } from 'src/app/models/address.model';
     <h1 mat-dialog-title>Confirm Address</h1>
     <div mat-dialog-content>
       <p>Do you want to use this address?</p>
-      <p>{{ data.street}} {{data.street_number}}, {{data.city}}</p>
+      <p>{{ data.street}} {{data.street_number}}, {{data.city}} {{data.zipcode}}</p>
     </div>
     <div mat-dialog-actions>
       <button mat-button [mat-dialog-close]="true">Yes</button>

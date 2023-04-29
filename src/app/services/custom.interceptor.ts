@@ -12,14 +12,13 @@ export class CustomInterceptor implements HttpInterceptor {
 
   constructor() {}
 
-  
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const accessToken = localStorage.getItem('access');
     if (accessToken !== null) {
       request = request.clone({headers: request.headers.set('Authorization', 'Bearer ' + accessToken)});
       return next.handle(request);
-    } else {
-      return next.handle(request);
-    }
+      }
+
+    return next.handle(request);
   }
 }

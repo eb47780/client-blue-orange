@@ -79,7 +79,7 @@ export class CheckoutComponent implements OnInit {
       this.checkoutService.setAddress(this.addressForm.value).subscribe(result => {
         this.addressConfirmed = true;
         this.address = result;
-        this._snackBar.open('Address created', 'Ok', {
+        this._snackBar.open('Address Confirmed', 'Ok', {
           duration: 2500,
         })
       })
@@ -93,14 +93,17 @@ export class CheckoutComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.addressConfirmed=true;
-        this.loading=false;
+        this.checkoutService.updateAddress(this.address.id, this.addressForm.value).subscribe(result => {
+          this.addressConfirmed=true;
+          this.loading=false;
+        })
+
       } else {
         this.addressConfirmed = false;
         this.checkoutService.deleteAddress(this.address.id).subscribe((result: any)=> {
           this.address = result
         });
-        this._snackBar.open('Address removed', 'Ok', {
+        this._snackBar.open('Address Removed', 'Ok', {
           duration: 700,
         })
         setTimeout(() => {
@@ -117,5 +120,9 @@ export class CheckoutComponent implements OnInit {
     console.log()
     this.checkoutService.setCardDetails(this.cardDetails);
   }
+  
+  getTotal(items: CartItem[]): number {
+      return this.cartService.getTotal(items);
+    }
 
 }

@@ -1,94 +1,80 @@
-<div *ngIf="(user$ | async) as user" class="bg-white rounded-lg shadow-lg px-16">
+<div *ngIf="(user$ | async) as user" class="bg-white rounded-lg shadow-lg p-8">
   <div class="flex justify-center h-screen">
-  <mat-card class="card">
-    <mat-card-header>
+    <mat-card class="card w-full max-w-lg">
+      <mat-card-header>
         <div mat-card-avatar>
-            <img class="header-image">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#2d3748"/>
+            <text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-size="30" font-family="Arial, sans-serif" fill="#fff">U</text>
+          </svg>
         </div>
-        <mat-card-title>{{user.name}}</mat-card-title>
-        <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content class="bg-white shadow-md rounded-md p-6">
-      <p class="text-lg font-bold text-gray-800 mb-2">Username: {{ user.name }}</p>
-      <p class="text-gray-700 mb-4">Phone: {{ user.phone }}</p>
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="openEditProfileModal()">
-        Edit Profile
-      </button>
-    </mat-card-content>
-    
-
-    <mat-card-content>
-          <!-- User Checkout History Table -->
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-      <div class="overflow-x-auto">
-        <p class="text-lg font-bold text-gray-800 mb-2">Checkout History</p>
-
-        <table class="table-auto border-collapse w-full">
-          <thead class="bg-gray-50">
-            <tr>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Order #
-              </th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Date
-              </th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Status
-              </th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Items
-              </th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Total
-              </th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Arrival Date
-              </th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
-            <!-- Replace with data from your backend -->
-            <tr>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm font-medium text-gray-900">00001</div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-500">April 25, 2023</div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                  Delivered
-                </span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-500">2 items</div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                $100.00
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                April 28, 2023
-              </td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm font-medium text-gray-900">00002</div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-500">April 20, 2023</div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                  In Transit
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    </mat-card-content>
-</mat-card>
-</div>
+        <mat-card-title class="mt-2">{{ user.email }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="p-6">
+        <div class="flex flex-col md:flex-row md:items-center">
+          <div class="md:w-1/2 pr-8">
+            <p class="text-lg font-bold text-gray-800 mb-2">User Information:</p>
+            <div class="border rounded-md p-4 shadow-md">
+              Name:<p class="text-gray-700 mb-2 font-semibold"> {{ user.name }}</p>
+              Phone Number:<p class="text-gray-700 mb-4 font-semibold">{{ user.phone }}</p>
+              <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded" (click)="openEditProfileModal()">
+                Edit Profile
+              </button>
+            </div>
+          </div>
+          <div class="md:w-1/2 mt-4 md:mt-0">
+            <p class="text-lg font-bold text-gray-800 mb-2">Address Information:</p>
+            <div class="border rounded-lg p-4 shadow-md" *ngIf="address">
+              Street and Street Number: <p class="text-gray-700 font-semibold">{{ address.street }} {{ address.street_number }}</p>
+              City and Zipcode: <p class="text-gray-700 font-semibold">{{ address.city }}, {{ address.zipcode }}</p>
+              <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-2" (click)="openEditAddressModal()">
+                Update Address
+              </button>
+            </div>
+            <div class="border rounded-lg p-4 shadow-md" *ngIf="!address">
+              <p class="text-gray-700 font-semibold">No address on file.</p>
+              <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-2" (click)="openCreateAddressModal()">
+                Add Address
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content>
+        <div class="overflow-x-auto">
+          <p class="text-lg font-bold text-gray-800 mb-2">Checkout History</p>
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item Name</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Checked Out</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Due Date</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Book A</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">04/20/2023</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">05/20/2023</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">Returned</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Book B</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">04/15/2023</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">05/15/2023</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">Overdue</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Book C</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">04/10/2023</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">05/10/2023</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-500">Pending</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

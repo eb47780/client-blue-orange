@@ -42,6 +42,8 @@ import { SignupComponent } from './signup/signup.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { ConfirmAddressComponent } from './pages/checkout/confirm-address/confirm-address.component';
 import { UserEditComponent } from './pages/user/user-edit/user-edit.component';
+import { UserAddressEditComponent } from './pages/user/user-address-edit/user-address-edit.component';
+import { UserAddressCreateComponent } from './pages/user/user-address-create/user-address-create.component';
 
 
 @NgModule({
@@ -59,6 +61,8 @@ import { UserEditComponent } from './pages/user/user-edit/user-edit.component';
     CheckoutComponent,
     ConfirmAddressComponent,
     UserEditComponent,
+    UserAddressEditComponent,
+    UserAddressCreateComponent,
     
   ],
   imports: [

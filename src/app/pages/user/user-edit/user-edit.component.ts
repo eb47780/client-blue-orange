@@ -31,14 +31,17 @@ export class UserEditComponent implements OnInit {
 
 initUserForm(): void {
   this.userForm = this.formBuilder.group({
-    name: [this.user.name],
-    email: [this.user.email],
-    phone: [this.user.phone],
+    name: [this.user.name, Validators.required],
+    email: [this.user.email, Validators.required],
+    phone: [this.user.phone, Validators.required],
   });
 }
  // Define function to close dialog and pass back user form group value
  save(): void {
-   this.dialogRef.close(this.userForm.value);
+  if (!this.userForm.valid) {
+    return;
+  }
+  this.dialogRef.close(this.userForm.value);
  }
 
 }
