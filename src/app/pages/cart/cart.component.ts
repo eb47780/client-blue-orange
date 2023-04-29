@@ -55,18 +55,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   onCheckout(): void {
-
-    if (this.authService.isAuthenticated()) {
-      window.location.href='http://localhost:4200/checkout' 
-    } else {
-      this._snackBar.open('Not authorized to complete checkout', 'Log In', {
-        duration: 10000,
-      }).onAction().subscribe(() => {
-         window.location.href='http://localhost:4200/login'
-      });
-    }
-
-    
+    window.location.href='http://localhost:4200/checkout' 
   }
 
   ngOnDestroy() {

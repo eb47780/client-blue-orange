@@ -45,8 +45,8 @@ export class HeaderComponent {
     this.cartService.clearCart();
   }
 
-  navigateToProfile(id: string | undefined) {
-    this.router.navigate(['user/' + id], {relativeTo: this.activatedRoute});
+  navigateToProfile() {
+    this.router.navigate(['user/'], {relativeTo: this.activatedRoute});
   }
 
   logout() {

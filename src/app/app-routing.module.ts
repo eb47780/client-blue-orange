@@ -6,6 +6,8 @@ import { LoginComponent } from './login/login.component';
 import { UserComponent } from './pages/user/user.component';
 import { SignupComponent } from './signup/signup.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { AuthGuard } from './auth.guard';
+import { CheckoutGuard } from './checkout.guard';
 
 const routes: Routes = [
   {
@@ -28,21 +30,19 @@ const routes: Routes = [
     component: SignupComponent,
   },
 
-  {
-    path: 'checkout',
-    component: CheckoutComponent
-  },
 
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
   {
+    path: 'checkout',
+    component: CheckoutComponent,
+    canActivate: [CheckoutGuard],
+  },
+
+  {
     path: 'user',
-    children: [
-      {
-        path: ':id',
-        component: UserComponent
-      }
-    ]
+    component: UserComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
