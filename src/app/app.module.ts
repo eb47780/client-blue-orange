@@ -41,6 +41,7 @@ import { UserComponent } from './pages/user/user.component';
 import { SignupComponent } from './signup/signup.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { ConfirmAddressComponent } from './pages/checkout/confirm-address/confirm-address.component';
+import { UserEditComponent } from './pages/user/user-edit/user-edit.component';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { ConfirmAddressComponent } from './pages/checkout/confirm-address/confir
     SignupComponent,
     CheckoutComponent,
     ConfirmAddressComponent,
+    UserEditComponent,
     
   ],
   imports: [

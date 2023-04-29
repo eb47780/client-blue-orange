@@ -17,4 +17,10 @@ export class UserService {
     )
   }
 
+  updateUser(data: any): Observable<User> {
+    return this.http.patch('http://localhost:8001/api/client/' + localStorage.getItem('id'), data).pipe(
+      map((user:User) => user)
+    )
+  }
+
 }

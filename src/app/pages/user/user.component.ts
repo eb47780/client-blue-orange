@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Observable, map, switchMap } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
+import { UserEditComponent } from './user-edit/user-edit.component';
 
 @Component({
   selector: 'app-user',
@@ -21,24 +23,36 @@ export class UserComponent implements OnInit {
   userForm: FormGroup;
   checkoutHistoryColumns = ['orderNumber', 'totalPrice', 'status'];
 
-  constructor(private activatedRoute: ActivatedRoute, private userService: UserService,  private fb: FormBuilder) { }
+  constructor(private activatedRoute: ActivatedRoute, private userService: UserService,  private fb: FormBuilder, private dialog: MatDialog) { }
 
+
+  user$: Observable<User> = this.userService.getUser(localStorage.getItem('id'));
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', Validators.required],
       phone: ['', Validators.required],
-      address: ['', Validators.required]
+    });
+    
+  }
+
+  openEditProfileModal(): void {
+    // Open dialog and pass in user form group
+    const dialogRef = this.dialog.open(UserEditComponent, {
+      data: this.userForm.value
+    });
+
+    // Subscribe to dialog result and update user data if user clicks save
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userService.updateUser(result).subscribe((data: any) => {
+          window.location.reload();
+        });
+      }
     });
   }
 
-  private userId$: Observable<string> = this.activatedRoute.params.pipe(
-    map((params: Params) => params['id'])
-  )
-
-  user$: Observable<User> = this.userId$.pipe(
-    switchMap((userId: string) => this.userService.getUser(userId))
-  )
+  
 
 }

@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Edit Profile</h2>
+<div mat-dialog-content>
+  <form [formGroup]="userForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="name" [(ngModel)]="user.name" name="name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" [(ngModel)]="user.email" name="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone" [(ngModel)]="user.phone" name="phone">
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()">Cancel</button>
+  <button mat-button color="primary" (click)="save()">Save</button>
+</div>

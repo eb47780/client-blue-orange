@@ -101,11 +101,11 @@ export class CheckoutComponent implements OnInit {
           this.address = result
         });
         this._snackBar.open('Address removed', 'Ok', {
-          duration: 1000,
+          duration: 700,
         })
         setTimeout(() => {
-          window.location.href = 'http://localhost:4200/checkout'
-        }, 1000);
+          window.location.reload();
+        }, 700);
         
       }
     });  
