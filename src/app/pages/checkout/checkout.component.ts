@@ -69,6 +69,13 @@ export class CheckoutComponent implements OnInit {
     zipcode: ['', [Validators.required]]
   })
 
+  cardForm: FormGroup = this.fb.group({
+    name: ['', [Validators.required]],
+    number: ['', [Validators.required]],
+    dateExpiration: ['', Validators.required],
+    cvv: ['', Validators.required],
+  })
+
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
@@ -123,7 +130,7 @@ export class CheckoutComponent implements OnInit {
             this._snackBar.open('Address Removed', 'Ok', {
               duration: 3000,
             })
-            // window.location.reload();
+            window.location.reload();
           }
         }, 3000)
    
@@ -141,6 +148,11 @@ export class CheckoutComponent implements OnInit {
     }
 
   checkout() {
+
+    if (!this.cardForm.valid) {
+      return ;
+    }
+
     this.saveCardDetails();
     this.loading = true
 
