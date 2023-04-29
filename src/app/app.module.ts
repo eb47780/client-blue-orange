@@ -44,6 +44,7 @@ import { ConfirmAddressComponent } from './pages/checkout/confirm-address/confir
 import { UserEditComponent } from './pages/user/user-edit/user-edit.component';
 import { UserAddressEditComponent } from './pages/user/user-address-edit/user-address-edit.component';
 import { UserAddressCreateComponent } from './pages/user/user-address-create/user-address-create.component';
+import { ItemsModalComponent } from './pages/user/items-modal/items-modal.component';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { UserAddressCreateComponent } from './pages/user/user-address-create/use
     UserEditComponent,
     UserAddressEditComponent,
     UserAddressCreateComponent,
+    ItemsModalComponent,
     
   ],
   imports: [

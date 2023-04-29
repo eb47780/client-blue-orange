@@ -32,7 +32,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getProducts();
-    console.log(this.authService.isAuthenticated())
+    if (!this.authService.isAuthenticated()) {
+      localStorage.removeItem('cart')
+    }
   }
 
   onColumnsCountChange(colsNum: number): void {

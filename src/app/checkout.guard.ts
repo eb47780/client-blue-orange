@@ -16,6 +16,7 @@ export class CheckoutGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
+    console.log(this.authService.isAuthenticated())
     // check if user is authenticated
     if (!this.authService.isAuthenticated()) {
        // if not, redirect to login page
@@ -26,7 +27,7 @@ export class CheckoutGuard implements CanActivate {
       return false; 
     }
 
-    else if (this.authService.isAuthenticated() && localStorage.getItem('cart') !== null) {
+    else if (localStorage.getItem('cart') !== null) {
       return true;
     } else {
       // if not, redirect to login page

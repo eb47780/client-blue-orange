@@ -47,11 +47,11 @@ export class CheckoutService {
       zipcode: data.zipcode,
       customer: localStorage.getItem('id')
     }
-    return this.http.put<Address>('http://localhost:8001/api/address/'+ id, address_posted)
+    return this.http.put<Address>('http://localhost:8001/api/address/'+ id, address_posted);
   }
 
   deleteAddress(id: string): any {
-    return this.http.delete('http://localhost:8001/api/address/'+ id)
+    return this.http.delete('http://localhost:8001/api/address/'+ id);
   }
 
   // Get user's card details
@@ -60,6 +60,14 @@ export class CheckoutService {
   }
 
   checkout(data: any): Observable<any>{
-    return this.http.post('http://localhost:8000/api/checkouts/v1', data)
+    return this.http.post('http://localhost:8004/api/checkouts/v1', data);
+  }
+
+  getCheckout(id: any): Observable<any> {
+    return this.http.get('http://localhost:8004/api/checkout/' + id);
+  }
+
+  getStatusName(id: any): any {
+    return this.http.get('http://localhost:8004/api/status/' + id);
   }
 }

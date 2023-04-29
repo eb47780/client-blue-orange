@@ -114,15 +114,36 @@ export class CheckoutComponent implements OnInit {
     });  
   }
   
-
   // Save user's card details
   saveCardDetails() {
-    console.log()
     this.checkoutService.setCardDetails(this.cardDetails);
   }
   
   getTotal(items: CartItem[]): number {
       return this.cartService.getTotal(items);
     }
+
+  checkout() {
+    this.saveCardDetails();
+    const items = this.cartItems.map(item => {
+      return {
+        quantity: item.quantity,
+        product: item.id,
+        price: item.price
+      };
+    });
+    const data = {
+      items: items,
+      customer: localStorage.getItem('id'),
+      address: this.address.id,
+      payment_method: "e0282812-d1b0-4585-99bf-6510497602ab"
+    };
+    this.checkoutService.checkout(data).subscribe(result => {
+      console.log(result)
+      localStorage.removeItem('cart')
+    }, (error) => {
+      console.log(error)
+    });
+  }
 
 }

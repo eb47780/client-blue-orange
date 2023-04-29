@@ -10,6 +10,7 @@ import { Address } from 'src/app/models/address.model';
 import { CheckoutService } from 'src/app/services/checkout.service';
 import { UserAddressEditComponent } from './user-address-edit/user-address-edit.component';
 import { UserAddressCreateComponent } from './user-address-create/user-address-create.component';
+import { ItemsModalComponent } from './items-modal/items-modal.component';
 
 @Component({
   selector: 'app-user',
@@ -18,12 +19,7 @@ import { UserAddressCreateComponent } from './user-address-create/user-address-c
 })
 export class UserComponent implements OnInit {
 
-  checkoutHistory = [
-    { orderNumber: 1234, totalPrice: 49.99, status: 'Delivered' },
-    { orderNumber: 5678, totalPrice: 29.99, status: 'In Progress' },
-    { orderNumber: 9012, totalPrice: 9.99, status: 'Cancelled' }
-  ];
-
+  checkoutHistory: any[] = [];
   userForm: FormGroup;
   addressForm: FormGroup;
   checkoutHistoryColumns = ['orderNumber', 'totalPrice', 'status'];
@@ -32,6 +28,7 @@ export class UserComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private userService: UserService,  private fb: FormBuilder, private dialog: MatDialog, private checkoutService: CheckoutService) { }
 
 
+  
   user$: Observable<User> = this.userService.getUser(localStorage.getItem('id'));
 
 
@@ -55,6 +52,26 @@ export class UserComponent implements OnInit {
       const obj = item as Address;
       this.address = obj;
     });
+
+    const userId = localStorage.getItem('id');
+    this.user$ = this.userService.getUser(userId);
+    
+    this.checkoutService.getCheckout(userId).subscribe(
+      (history: any[]) => {
+        this.checkoutHistory = history;
+        this.checkoutHistory.forEach((checkout) => {
+          this.checkoutService.getStatusName(checkout.status).subscribe((result: any) => {
+            checkout.status = result.message;
+          });
+        });
+      },
+      (error) => {
+        console.error('Failed to get checkout history:', error);
+      }
+    );
+
+
+  
 
   }
 
@@ -106,8 +123,17 @@ export class UserComponent implements OnInit {
         });
       }
     });
-  }
+  }  
 
-  
+  openItemsModal(items: any[]) {
+    const dialogRef = this.dialog.open(ItemsModalComponent, {
+      width: '500px',
+      data: { items: items }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The items modal was closed');
+    });
+  }
 
 }

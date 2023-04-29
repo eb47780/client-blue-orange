@@ -43,38 +43,40 @@
       <mat-card-content>
         <div class="overflow-x-auto">
           <p class="text-lg font-bold text-gray-800 mb-2">Checkout History</p>
-          <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-              <tr>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item Name</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Checked Out</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Due Date</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-              </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-              <tr>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Book A</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">04/20/2023</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">05/20/2023</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">Returned</td>
-              </tr>
-              <tr>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Book B</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">04/15/2023</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">05/15/2023</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">Overdue</td>
-              </tr>
-              <tr>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Book C</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">04/10/2023</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">05/10/2023</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-500">Pending</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="max-h-96">
+            <table class="table-auto min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item Name</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Checked Out</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Price</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr *ngFor="let checkout of checkoutHistory">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ checkout.id }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 cursor-pointer" (click)="openItemsModal(checkout.items)">{{ 'Show Items' }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ checkout.created_at | date:'MM/dd/yyyy HH:mm:ss' }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ checkout.total | currency }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm"
+                  [ngClass]="{
+                    'text-green-500': checkout.status === 'Approved Purchase',
+                    'text-yellow-500': checkout.status === 'Processing Purchase',
+                    'text-red-500': checkout.status === 'Purchase Denied',
+                    'text-blue-500': checkout.status === 'Purchase Sent'
+                  }">
+                  {{ checkout.status }}
+                </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </mat-card-content>
+      
+       
     </mat-card>
   </div>
 </div>
