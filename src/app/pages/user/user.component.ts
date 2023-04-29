@@ -60,6 +60,11 @@ export class UserComponent implements OnInit {
       (history: any[]) => {
         this.checkoutHistory = history;
         this.checkoutHistory.forEach((checkout) => {
+          if (checkout.payment_method === 'e0282812-d1b0-4585-99bf-6510497602ab') {
+            checkout.payment_method = 'Credit Card'
+          } else {
+            checkout.payment_method = 'Cash'
+          }
           this.checkoutService.getStatusName(checkout.status).subscribe((result: any) => {
             checkout.status = result.message;
           });

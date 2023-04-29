@@ -68,10 +68,12 @@
       
           </div>
         </div>
-        <button (click)="confirmAddress()" mat-raised-button color="primary" class="ml-4" [disabled]="loading">
-          <mat-spinner *ngIf="loading" class="mat-spinner-inline"></mat-spinner>
-          <span *ngIf="!loading">Confirm Address</span>
-        </button>
+        <span>
+          <button (click)="confirmAddress()" mat-raised-button color="primary" class="ml-4">
+            <i class="fa fa-spinner fa-spin" *ngIf="loadingaddress"> </i>
+            &nbsp; {{loadingaddress? 'Confirming Address' : 'Confirm Address'}} &nbsp;  
+          </button>
+        </span>
       </div>
 
       <div class="mb-4" *ngIf="!address">
@@ -107,42 +109,73 @@
     
           </div>
         </div>
-          <button (click)="confirmAddress()" mat-raised-button color="primary" class="ml-4" [disabled]="loading">
-            <mat-spinner *ngIf="loading" class="mat-spinner-inline"></mat-spinner>
-            <span *ngIf="!loading">Confirm Address</span>
+        <span>
+          <button (click)="confirmAddress()" mat-raised-button color="primary" class="ml-4">
+            <i class="fa fa-spinner fa-spin" *ngIf="loadingaddress"> </i>
+            &nbsp; {{loadingaddress? 'Confirming Address' : 'Confirm Address'}} &nbsp;  
           </button>
+        </span>
       </div>
+
+      <div *ngIf="addressConfirmed" [@slideIn] class="text-center mt-12">
+        <h2 class="text-lg font-bold mb-4">Choose Payment Method</h2>
+          <div class="flex justify-center gap-4 mb-4">
+            <button class="payment-method" [ngClass]="{'selected': selectedPaymentMethod === 'cash'}" (click)="selectedPaymentMethod = 'cash'; paymentMethodSelected()">
+              <img src="https://cdn-icons-png.flaticon.com/512/3975/3975835.png" alt="Cash" class="payment-method-icon">
+              <span>Cash</span>
+            </button>
+            <button class="payment-method" [ngClass]="{'selected': selectedPaymentMethod === 'credit-card'}" (click)="selectedPaymentMethod = 'credit-card'; paymentMethodSelected()">
+              <img src="https://cdn-icons-png.flaticon.com/512/3664/3664504.png" alt="Credit Card" class="payment-method-icon">
+              <span>Credit Card</span>
+            </button>
+          </div>
+      </div>
+      
        
     
-      <div *ngIf="addressConfirmed" [@slideIn] class="slide-in">
+    <div *ngIf="creditcard && addressConfirmed" [@slideIn] class="slide-in mt-12">
         <h2 class="text-lg font-bold mb-4 text-center">Card Details</h2>
-            <!-- Card components and checkout button go here -->
-          <!-- Card Details Section -->
-          <div class="mb-4">
-            <mat-form-field appearance="outline" class="w-full">
-              <mat-label>Name on Card</mat-label>
-              <input matInput type="text" class="w-full">
-            </mat-form-field>
-          </div>
-          <div class="mb-4">
-            <mat-form-field appearance="outline" class="w-full">
-              <mat-label>Card Number</mat-label>
-              <input matInput type="text" class="w-full">
-            </mat-form-field>
-          </div>
-          <div class="flex mb-4">
-            <mat-form-field appearance="outline" class="w-1/2 mr-2">
-              <mat-label>Expiration Date</mat-label>
-              <input matInput type="text" class="w-full">
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="w-1/2 ml-2">
-              <mat-label>CVV</mat-label>
-              <input matInput type="text" class="w-full">
-            </mat-form-field>
-          </div>
-          <span><button (click)="checkout()" mat-raised-button color="primary" class="w-full">Pay</button></span>
-          
+        <!-- Card components and checkout button go here -->
+        <!-- Card Details Section -->
+        <div class="mb-4">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Name on Card</mat-label>
+            <input matInput type="text" class="w-full">
+          </mat-form-field>
         </div>
+        <div class="mb-4">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Card Number</mat-label>
+            <input matInput type="text" class="w-full">
+          </mat-form-field>
+        </div>
+        <div class="flex mb-4">
+          <mat-form-field appearance="outline" class="w-1/2 mr-2">
+            <mat-label>Expiration Date</mat-label>
+            <input matInput type="text" class="w-full">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-1/2 ml-2">
+            <mat-label>CVV</mat-label>
+            <input matInput type="text" class="w-full">
+          </mat-form-field>
+        </div>
+        <span class="items-center"><button (click)="checkout()" mat-raised-button color="primary" class="w-128">
+          <i class="fa fa-spinner fa-spin" *ngIf="loading"> </i>
+          &nbsp; {{loading? 'Processing Payment' : 'Pay with Credit Card'}} &nbsp;  
+        </button></span>
+      </div>
+
+      <div *ngIf="cash && addressConfirmed" [@slideIn] class="slide-in mt-12">
+        <span class="items-center"><button (click)="checkout()" mat-raised-button color="primary" class="w-128">
+          <i class="fa fa-spinner fa-spin" *ngIf="loading"> </i>
+          &nbsp; {{loading? 'Processing Payment' : 'Pay Cash'}} &nbsp;  
+        </button></span>
+      </div> 
+
+      <mat-error *ngIf="showError" class="sz-10">
+        {{message}}
+      </mat-error>
+
     </form>
   </div>
 </div>

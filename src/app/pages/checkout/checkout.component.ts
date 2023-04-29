@@ -36,11 +36,15 @@ export class CheckoutComponent implements OnInit {
   showError: boolean = false;
   message: string = '';
   loading: boolean = false;
-
+  loadingaddress: boolean = false;
+  paymentConfirmed = false;
+  payment_method_id: string;
+  showMessage: boolean;
 
   constructor(private checkoutService: CheckoutService, public dialog: MatDialog, private cartService: CartService, private fb: FormBuilder, private _snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit(): void {
+
     // Subscribe to user's address
     this.checkoutService.getAddress().subscribe((address: any) => {
       console.log(address)
@@ -72,17 +76,21 @@ export class CheckoutComponent implements OnInit {
   confirmAddress() {
     this.showError = false;
     if (!this.addressForm.valid) {
+      this.loadingaddress=false
       return;
       } 
 
     if (!this.address) {
-      this.checkoutService.setAddress(this.addressForm.value).subscribe(result => {
-        this.addressConfirmed = true;
-        this.address = result;
+        setTimeout(() => {
+          this.loadingaddress=true
+          this.checkoutService.setAddress(this.addressForm.value).subscribe(result => {
+            this.addressConfirmed = true;
+            this.address = result;
+         })
+        }, 2500)
         this._snackBar.open('Address Confirmed', 'Ok', {
           duration: 2500,
         })
-      })
       return;
     }
 
@@ -91,27 +99,36 @@ export class CheckoutComponent implements OnInit {
       disableClose: true,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.checkoutService.updateAddress(this.address.id, this.addressForm.value).subscribe(result => {
-          this.addressConfirmed=true;
-          this.loading=false;
-        })
 
-      } else {
-        this.addressConfirmed = false;
-        this.checkoutService.deleteAddress(this.address.id).subscribe((result: any)=> {
-          this.address = result
-        });
-        this._snackBar.open('Address Removed', 'Ok', {
-          duration: 700,
-        })
+      dialogRef.afterClosed().subscribe(result => {
+        this.loadingaddress=true;
         setTimeout(() => {
-          window.location.reload();
-        }, 700);
-        
-      }
-    });  
+          if (result) {
+            this.checkoutService.updateAddress(this.address.id, this.addressForm.value).subscribe(result => {
+              this.addressConfirmed=true;
+            })
+            this.loadingaddress=false
+            this._snackBar.open('Address Confirmed', 'Ok', {
+              duration: 3000,
+            })
+    
+    
+          } else {
+            this.checkoutService.deleteAddress(this.address.id).subscribe((result: any)=> {
+              console.log(result.status)
+              console.log(result)
+            });
+            this.loadingaddress=false
+            this.addressConfirmed = false;
+            this._snackBar.open('Address Removed', 'Ok', {
+              duration: 3000,
+            })
+            // window.location.reload();
+          }
+        }, 3000)
+   
+      });  
+
   }
   
   // Save user's card details
@@ -125,6 +142,8 @@ export class CheckoutComponent implements OnInit {
 
   checkout() {
     this.saveCardDetails();
+    this.loading = true
+
     const items = this.cartItems.map(item => {
       return {
         quantity: item.quantity,
@@ -132,19 +151,44 @@ export class CheckoutComponent implements OnInit {
         price: item.price
       };
     });
+
     const data = {
       items: items,
       customer: localStorage.getItem('id'),
       address: this.address.id,
-      payment_method: "e0282812-d1b0-4585-99bf-6510497602ab"
+      payment_method: this.payment_method_id
     };
-    this.checkoutService.checkout(data).subscribe(result => {
-      console.log(result)
-      localStorage.removeItem('cart')
-      window.location.href='http://localhost:4200/user' // for now
-    }, (error) => {
-      console.log(error)
-    });
+
+    setTimeout(() => {
+      this.showMessage = false;
+      this.checkoutService.checkout(data).subscribe(result => {
+        console.log(result)
+        localStorage.removeItem('cart')
+        this.loading= false
+        window.location.href='http://localhost:4200/user' // for now
+      }, (error) => {
+        this.loading=false
+        this.showMessage = true
+        this.message = 'Something went wrong trying to process the payment!'
+      });
+    }, 6000);
+
+  }
+
+  selectedPaymentMethod: string;
+  creditcard: boolean;
+  cash: boolean;
+
+  paymentMethodSelected() {
+    if (this.selectedPaymentMethod === 'credit-card') {
+      this.creditcard = true;
+      this.cash = false
+      this.payment_method_id = 'e0282812-d1b0-4585-99bf-6510497602ab'
+    } else if (this.selectedPaymentMethod === 'cash') {
+      this.creditcard = false;
+      this.cash = true
+      this.payment_method_id = 'e0982812-d1b0-4585-99bf-6510497602ab'
+    }
   }
 
 }

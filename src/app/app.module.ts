@@ -24,6 +24,7 @@ import { MatInputModule} from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import { ProductsHeaderComponent } from './pages/home/components/products-header/products-header.component';
 import { ProductBoxComponent } from './pages/home/components/product-box/product-box.component';
@@ -91,6 +92,7 @@ import { ItemsModalComponent } from './pages/user/items-modal/items-modal.compon
     MatTabsModule,
     FormsModule,
     MatProgressSpinnerModule,
+    MatButtonToggleModule
   ],
   providers: [
     CartService,
