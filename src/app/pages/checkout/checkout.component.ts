@@ -141,6 +141,7 @@ export class CheckoutComponent implements OnInit {
     this.checkoutService.checkout(data).subscribe(result => {
       console.log(result)
       localStorage.removeItem('cart')
+      window.location.href='http://localhost:4200/user' // for now
     }, (error) => {
       console.log(error)
     });

@@ -68,11 +68,7 @@ export class UserComponent implements OnInit {
       (error) => {
         console.error('Failed to get checkout history:', error);
       }
-    );
-
-
-  
-
+    )
   }
 
   openEditProfileModal(): void {
