@@ -171,19 +171,21 @@ export class CheckoutComponent implements OnInit {
       payment_method: this.payment_method_id
     };
 
-    setTimeout(() => {
-      this.showMessage = false;
+    this.showMessage = false;
+
+    setTimeout(()=>{
       this.checkoutService.checkout(data).subscribe(result => {
-        console.log(result)
         localStorage.removeItem('cart')
-        this.loading= false
-        window.location.href='http://localhost:4200/user' // for now
+        this.loading = false;
+        window.location.href='http://localhost:4200/success'
       }, (error) => {
         this.loading=false
-        this.showMessage = true
-        this.message = 'Something went wrong trying to process the payment!'
+        window.location.href='http://localhost:4200/failed'
       });
-    }, 6000);
+    }, 5000)
+
+
+
 
   }
 

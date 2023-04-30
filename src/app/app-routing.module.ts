@@ -8,6 +8,8 @@ import { SignupComponent } from './signup/signup.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { AuthGuard } from './auth.guard';
 import { CheckoutGuard } from './checkout.guard';
+import { SuccessUrlComponent } from './pages/checkout/success-url/success-url.component';
+import { FailedUrlComponent } from './pages/checkout/failed-url/failed-url.component';
 
 const routes: Routes = [
   {
@@ -43,6 +45,18 @@ const routes: Routes = [
     path: 'user',
     component: UserComponent,
     canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'success',
+    component: SuccessUrlComponent,
+    canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'failed',
+    component: FailedUrlComponent,
+    canActivate: [AuthGuard],
   }
 ];
 

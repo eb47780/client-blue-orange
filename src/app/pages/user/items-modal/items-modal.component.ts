@@ -4,11 +4,13 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 @Component({
   selector: 'app-items-modal',
   template: `
-   <h2 class="text-xl font-bold mb-4">Items</h2>
+   <h2 class="text-xl font-bold mb-4">Checkout Items Purchased</h2>
   <div class="max-h-64 overflow-y-auto">
     <div *ngFor="let item of items" class="bg-white shadow-md rounded-lg p-4 mb-4">
+      <div class="flex-shrink-0">
+              <img class="h-8 w-8" src="{{ 'http://localhost:8002'+item.image }}" alt="Product Image">
+      </div>
       <p class="text-lg font-medium">{{ item.title }}</p>
-      <p class="text-gray-500">{{ item.description }}</p>
       <p class="text-green-500 font-bold mt-2">{{ item.price | currency }}</p>
     </div>
   </div>
@@ -25,6 +27,7 @@ export class ItemsModalComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.items = data.items;
+    
   }
 
   close() {

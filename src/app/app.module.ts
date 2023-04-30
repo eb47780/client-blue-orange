@@ -46,6 +46,8 @@ import { UserEditComponent } from './pages/user/user-edit/user-edit.component';
 import { UserAddressEditComponent } from './pages/user/user-address-edit/user-address-edit.component';
 import { UserAddressCreateComponent } from './pages/user/user-address-create/user-address-create.component';
 import { ItemsModalComponent } from './pages/user/items-modal/items-modal.component';
+import { SuccessUrlComponent } from './pages/checkout/success-url/success-url.component';
+import { FailedUrlComponent } from './pages/checkout/failed-url/failed-url.component';
 
 
 @NgModule({
@@ -66,6 +68,8 @@ import { ItemsModalComponent } from './pages/user/items-modal/items-modal.compon
     UserAddressEditComponent,
     UserAddressCreateComponent,
     ItemsModalComponent,
+    SuccessUrlComponent,
+    FailedUrlComponent,
     
   ],
   imports: [
