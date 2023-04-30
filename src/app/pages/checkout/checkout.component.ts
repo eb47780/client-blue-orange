@@ -81,24 +81,23 @@ export class CheckoutComponent implements OnInit {
   }
   // Open dialog to confirm user's current address
   confirmAddress() {
-    this.showError = false;
     if (!this.addressForm.valid) {
-      this.loadingaddress=false
       return;
       } 
 
     if (!this.address) {
-        this.loadingaddress=true
+        this.loadingaddress=true;
         setTimeout(() => {
           this.checkoutService.setAddress(this.addressForm.value).subscribe(result => {
             this.addressConfirmed = true;
             this.address = result;
+            this.loadingaddress=false;
+            this._snackBar.open('Address Confirmed', 'Ok', {
+              duration: 1500,
+            })
          })
-        }, 2500)
-        this._snackBar.open('Address Confirmed', 'Ok', {
-          duration: 2500,
-        })
-        this.loadingaddress = false;
+        }, 1500)
+
       return;
     }
 
@@ -117,23 +116,20 @@ export class CheckoutComponent implements OnInit {
             })
             this.loadingaddress=false
             this._snackBar.open('Address Confirmed', 'Ok', {
-              duration: 3000,
+              duration: 1500,
             })
-    
-    
           } else {
             this.checkoutService.deleteAddress(this.address.id).subscribe((result: any)=> {
-              console.log(result.status)
-              console.log(result)
+              console.log(result);
             });
             this.loadingaddress=false
             this.addressConfirmed = false;
             this._snackBar.open('Address Removed', 'Ok', {
-              duration: 3000,
+              duration: 1500,
             })
             window.location.reload();
           }
-        }, 3000)
+        }, 1500)
    
       });  
 
