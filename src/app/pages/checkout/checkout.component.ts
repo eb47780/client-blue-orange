@@ -88,8 +88,8 @@ export class CheckoutComponent implements OnInit {
       } 
 
     if (!this.address) {
+        this.loadingaddress=true
         setTimeout(() => {
-          this.loadingaddress=true
           this.checkoutService.setAddress(this.addressForm.value).subscribe(result => {
             this.addressConfirmed = true;
             this.address = result;
@@ -98,6 +98,7 @@ export class CheckoutComponent implements OnInit {
         this._snackBar.open('Address Confirmed', 'Ok', {
           duration: 2500,
         })
+        this.loadingaddress = false;
       return;
     }
 
@@ -171,18 +172,19 @@ export class CheckoutComponent implements OnInit {
       payment_method: this.payment_method_id
     };
 
-    this.showMessage = false;
 
-    setTimeout(()=>{
-      this.checkoutService.checkout(data).subscribe(result => {
-        localStorage.removeItem('cart')
-        this.loading = false;
+    this.checkoutService.checkout(data).subscribe(result => {
+      localStorage.removeItem('cart')
+      setTimeout(() => {
         window.location.href='http://localhost:4200/success'
-      }, (error) => {
-        this.loading=false
+      }, 5000)
+      
+    }, (error) => {
+      setTimeout(() => {
         window.location.href='http://localhost:4200/failed'
-      });
-    }, 5000)
+      }, 5000)
+    });
+ 
 
 
 

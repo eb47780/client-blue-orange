@@ -73,7 +73,7 @@
         <span>
           <button (click)="confirmAddress()" mat-raised-button color="primary" class="ml-4">
             <i class="fa fa-spinner fa-spin" *ngIf="loadingaddress"> </i>
-            &nbsp; {{loadingaddress? 'Confirming Address' : 'Confirm Address'}} &nbsp;  
+            &nbsp; {{loadingaddress? 'Loading' : 'Confirm Address'}} &nbsp;  
           </button>
         </span>
       </div>
@@ -114,7 +114,7 @@
         <span>
           <button (click)="confirmAddress()" mat-raised-button color="primary" class="ml-4">
             <i class="fa fa-spinner fa-spin" *ngIf="loadingaddress"> </i>
-            &nbsp; {{loadingaddress? 'Confirming Address' : 'Confirm Address'}} &nbsp;  
+            &nbsp; {{loadingaddress? 'Loading' : 'Confirm Address'}} &nbsp;  
           </button>
         </span>
       </div>
@@ -163,13 +163,13 @@
           </div>
           <span class="items-center"><button  mat-raised-button color="primary" class="w-128">
             <i class="fa fa-spinner fa-spin" *ngIf="loading"> </i>
-            &nbsp; {{loading? 'Processing Payment' : 'Pay with Credit Card'}} &nbsp;  
+            &nbsp; {{loading? 'Processing' : 'Pay with Credit Card'}} &nbsp;  
           </button></span>
           <div [hidden]="!cash || !addressConfirmed">
             <!-- Cash checkout button goes here -->
             <button (click)="checkout()" mat-raised-button color="primary" class="w-128">
               <i class="fa fa-spinner fa-spin" *ngIf="loading"> </i>
-              &nbsp; {{loading? 'Processing Payment' : 'Pay Cash'}} &nbsp;
+              &nbsp; {{loading? 'Processing' : 'Pay Cash'}} &nbsp;
             </button>
           </div>
         <mat-error *ngIf="showError" class="sz-10">
