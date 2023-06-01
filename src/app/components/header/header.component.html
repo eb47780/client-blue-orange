@@ -11,7 +11,8 @@
   <mat-menu #menu="matMenu">
     <div class="p-3 divide-y divide-solid">
       <div class="pb-3">
-        <span class="mr-16">{{ cart.items.length }} items</span>
+        <span *ngIf="cart.items.length > 1" class="mr-16">{{ cart.items.length }} Items</span>
+        <span *ngIf="cart.items.length == 1" class="mr-16">{{ cart.items.length }} Item</span>
         <a routerLink="cart">View Cart</a>
       </div>
       <div *ngIf="cart.items.length" class="py-3">
