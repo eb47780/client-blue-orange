@@ -80,13 +80,11 @@ export class CartService {
   }
 
   clearCart(size?: any): void {
-
     if(size > 0){
       this.cart.next({ items: [] });
       this._snackBar.open('Cart is cleared.', 'Ok', {
         duration: 3000,
       });
-
       // Remove cart data from local storage
       localStorage.removeItem('cart');
     }else{
@@ -98,8 +96,11 @@ export class CartService {
       // Remove cart data from local storage
       localStorage.removeItem('cart');
     }
-
-
+  }
+  navigationtToaster(path: any){
+    this._snackBar.open('Navigation to '+path, 'Ok', {
+      duration: 3000,
+    });
   }
 
   getTotal(items: CartItem[]): number {

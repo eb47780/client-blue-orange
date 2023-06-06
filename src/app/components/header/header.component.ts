@@ -40,8 +40,11 @@ export class HeaderComponent {
     return this.cartService.getTotal(items);
   }
 
-  onClearCart(items: any): void {
+  onClearCart(items?: any): void {
     this.cartService.clearCart(items.length);
+  }
+  navigationToaster(path: any){
+    this.cartService.navigationtToaster(path)
   }
 
   navigateToProfile() {
