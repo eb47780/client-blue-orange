@@ -37,12 +37,11 @@ export class HeaderComponent {
   constructor(private cartService: CartService, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router, private authService: AuthService) {}
 
   getTotal(items: CartItem[]): number {
-    
     return this.cartService.getTotal(items);
   }
 
-  onClearCart(): void {
-    this.cartService.clearCart();
+  onClearCart(items: any): void {
+    this.cartService.clearCart(items.length);
   }
 
   navigateToProfile() {

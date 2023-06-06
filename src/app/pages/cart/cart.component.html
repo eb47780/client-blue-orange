@@ -48,7 +48,7 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef>
         <button
-          (click)="onClearCart()"
+          (click)="onClearCart(cart.items)"
           mat-raised-button
           color="warn"
           class="float-right"

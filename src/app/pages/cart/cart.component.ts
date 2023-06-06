@@ -50,12 +50,12 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartService.removeQuantity(item);
   }
 
-  onClearCart(): void {
-    this.cartService.clearCart();
+  onClearCart(size: any): void {
+    this.cartService.clearCart(size);
   }
 
   onCheckout(): void {
-    window.location.href='http://localhost:4200/checkout' 
+    window.location.href='http://localhost:4200/checkout'
   }
 
   ngOnDestroy() {

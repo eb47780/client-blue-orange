@@ -79,14 +79,27 @@ export class CartService {
     localStorage.setItem('cart', JSON.stringify(this.cart.value));
   }
 
-  clearCart(): void {
-    this.cart.next({ items: [] });
-    this._snackBar.open('Cart is cleared.', 'Ok', {
-      duration: 3000,
-    });
+  clearCart(size?: any): void {
 
-    // Remove cart data from local storage
-    localStorage.removeItem('cart');
+    if(size > 0){
+      this.cart.next({ items: [] });
+      this._snackBar.open('Cart is cleared.', 'Ok', {
+        duration: 3000,
+      });
+
+      // Remove cart data from local storage
+      localStorage.removeItem('cart');
+    }else{
+      this.cart.next({ items: [] });
+      this._snackBar.open('Cart is empty.', 'Ok', {
+        duration: 3000,
+      });
+
+      // Remove cart data from local storage
+      localStorage.removeItem('cart');
+    }
+
+
   }
 
   getTotal(items: CartItem[]): number {
