@@ -17,13 +17,13 @@ export class LoginComponent implements OnInit {
   showError: boolean = false;
   message:string = '';
   loading: boolean = false;
-  
+
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private _snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
-  
+
   }
 
   loginForm: FormGroup = this.fb.group({
@@ -31,23 +31,23 @@ export class LoginComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(6)]]
   })
 
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
+  delay(message: number) {
+    return new Promise( resolve => setTimeout(resolve, message) );
   }
   onLogin() {
     if (!this.loginForm.valid) {
       return;
     }
     else {
-      (async () => { 
+      (async () => {
         this.loading = true;
         this.showError = false;
         await this.delay(1000);
         this.authService.login(this.loginForm.value).pipe(
           map(token => window.location.href='http://localhost:4200/home')
-        ).subscribe( 
+        ).subscribe(
           result=> {
-          },   
+          },
           (error) => {
             this.showError = true;
             this.message = error.error.detail;
