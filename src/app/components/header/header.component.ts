@@ -29,15 +29,19 @@ export class HeaderComponent {
   set cart(cart: Cart) {
     this._cart = cart;
 
-    this.itemsQuantity = cart.items
-      .map((item) => item.quantity)
-      .reduce((prev, curent) => prev + curent, 0);
+    this.itemsQuantity = cart.items.map((item) => item.quantity).reduce((prev, curent) => prev + curent, 0);
   }
 
   constructor(private cartService: CartService, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router, private authService: AuthService) {}
 
   getTotal(items: CartItem[]): number {
     return this.cartService.getTotal(items);
+  }
+
+  logout() {
+    this.authService.logout();
+    window.location.href="http://localhost:4200/home"
+
   }
 
   onClearCart(items?: any): void {
@@ -51,9 +55,5 @@ export class HeaderComponent {
     this.router.navigate(['user/'], {relativeTo: this.activatedRoute});
   }
 
-  logout() {
-    this.authService.logout();
-    window.location.href="http://localhost:4200/home"
 
-  }
 }
