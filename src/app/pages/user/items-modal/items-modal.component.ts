@@ -8,10 +8,12 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
   <div class="max-h-64 overflow-y-auto">
     <div *ngFor="let item of items" class="bg-white shadow-md rounded-lg p-4 mb-4">
       <div class="flex-shrink-0">
-              <img class="h-8 w-8" src="{{ 'http://localhost:8002'+item.image }}" alt="Product Image">
+              <img class="h-9 w-12" src="{{ 'http://localhost:8002'+item.image }}" alt="Product Image">
       </div>
       <p class="text-lg font-medium">{{ item.title }}</p>
+      <p class="text-blue-400 font-bold mt-2">Quantity: {{ item.quantity }}x</p> 
       <p class="text-green-500 font-bold mt-2">{{ item.price | currency }}</p>
+      <p class="text-gray-700 font-bold mt-4">Total: {{ item.quantity * item.price | currency }}</p>
     </div>
   </div>
   <div class="flex justify-end mt-4">

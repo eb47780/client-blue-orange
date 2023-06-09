@@ -122,23 +122,17 @@
       <div *ngIf="addressConfirmed" [@slideIn] class="text-center mt-12">
         <h2 class="text-lg font-bold mb-4">Choose Payment Method</h2>
           <div class="flex justify-center gap-4 mb-4">
-            <button class="payment-method" [ngClass]="{'selected': selectedPaymentMethod === 'cash'}" (click)="selectedPaymentMethod = 'cash'; paymentMethodSelected()">
-              <img src="https://cdn-icons-png.flaticon.com/512/3975/3975835.png" alt="Cash" class="payment-method-icon">
-              <span>Cash</span>
-            </button>
-            <button class="payment-method" [ngClass]="{'selected': selectedPaymentMethod === 'credit-card'}" (click)="selectedPaymentMethod = 'credit-card'; paymentMethodSelected()">
+            <button class="payment-method" [ngClass]="{'selected': selectedPaymentMethod === 'card'}" (click)="selectedPaymentMethod = 'card'; paymentMethodSelected()">
               <img src="https://cdn-icons-png.flaticon.com/512/3664/3664504.png" alt="Credit Card" class="payment-method-icon">
               <span>Credit Card</span>
             </button>
           </div>
       </div>
 
-    
       <div *ngIf="creditcard && addressConfirmed" [@slideIn] class="slide-in mt-12">
-        <form class="bg-white shadow-md rounded-lg p-8 w-128" name="cardForm" [formGroup]="cardForm" (ngSubmit)="checkout()">   
+        <form class="bg-white shadow-md rounded-lg p-8 w-128" name="cardForm" [formGroup]="cardForm" (ngSubmit)="checkout()">
           <h2 class="text-lg font-bold mb-4 text-center">Card Details</h2>
-          <!-- Card components and checkout button go here -->
-          <!-- Card Details Section -->
+      
           <div class="mb-4">
             <mat-form-field appearance="outline" class="w-full">
               <mat-label>Name on Card</mat-label>
@@ -148,35 +142,48 @@
           <div class="mb-4">
             <mat-form-field appearance="outline" class="w-full">
               <mat-label>Card Number</mat-label>
-              <input matInput type="text" class="w-full" formControlName="number"  pattern="^\d{4}-\d{4}-\d{4}-\d{4}$" required>
+              <input matInput
+              type="text"
+              class="w-full"
+              formControlName="number"
+              (input)="formatCardNumber($event)"
+              [ngModel]="cardNumberFormatted"
+              pattern="^4242-4242-4242-4242$"
+              required>
+              <mat-error *ngIf="cardForm.get('number')?.hasError('pattern') && cardForm.get('number')?.dirty">
+                Please enter the valid test card number (4242-4242-4242-4242).
+              </mat-error>
             </mat-form-field>
           </div>
           <div class="flex mb-4">
             <mat-form-field appearance="outline" class="w-1/2 mr-2">
               <mat-label>Expiration Date</mat-label>
-              <input matInput type="text" class="w-full" formControlName="dateExpiration"  pattern="^(0[1-9]|1[0-2])\/(\d{2})$" required>
+              <input matInput type="text" class="w-full" formControlName="dateExpiration" pattern="^06/24$" required>
+              <mat-error *ngIf="cardForm.get('dateExpiration')?.hasError('pattern') && cardForm.get('dateExpiration')?.dirty">
+                Please enter the valid expiration date (06/24).
+              </mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-1/2 ml-2">
               <mat-label>CVV</mat-label>
-              <input matInput type="text" class="w-full" formControlName="cvv"  pattern="^\d{3,4}$" required>
+              <input matInput type="text" class="w-full" formControlName="cvv" pattern="^\d{3,4}$" required>
             </mat-form-field>
           </div>
-          <span class="items-center"><button  mat-raised-button color="primary" class="w-128">
-            <i class="fa fa-spinner fa-spin" *ngIf="loading"> </i>
-            &nbsp; {{loading? 'Processing' : 'Pay with Credit Card'}} &nbsp;  
-          </button></span>
-          <div [hidden]="!cash || !addressConfirmed">
-            <!-- Cash checkout button goes here -->
-            <button (click)="checkout()" mat-raised-button color="primary" class="w-128">
-              <i class="fa fa-spinner fa-spin" *ngIf="loading"> </i>
-              &nbsp; {{loading? 'Processing' : 'Pay Cash'}} &nbsp;
+          <span class="items-center">
+            <button mat-raised-button color="primary" class="w-128">
+              <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
+              &nbsp;{{ loading ? 'Processing' : 'Pay with Credit Card' }}&nbsp;
             </button>
-          </div>
-        <mat-error *ngIf="showError" class="sz-10">
-          {{message}}
-        </mat-error>
-    </form>
-  </div>
+          </span>
+      
+          <mat-error *ngIf="showError" class="sz-10">
+            {{ message }}
+          </mat-error>
+        </form>
+        <div class="flex items-center justify-center mt-4">
+          <mat-icon color="warn" class="mr-2">info</mat-icon>
+          <span class="text-sm text-red-500">This is a test mode. Please use the following test card number: 4242-4242-4242-4242 and expiration date: 06/24.</span>
+        </div>
+      </div>
   </form>
 
 </div>

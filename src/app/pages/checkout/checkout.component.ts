@@ -145,9 +145,13 @@ export class CheckoutComponent implements OnInit {
     }
 
   checkout() {
+    
+    console.log('got here')
 
-    if (!this.cardForm.valid) {
-      return ;
+    if (this.creditcard) {
+      if (!this.cardForm.valid) {
+        return ;
+      }
     }
 
     this.saveCardDetails();
@@ -161,6 +165,8 @@ export class CheckoutComponent implements OnInit {
       };
     });
 
+    console.log(items);
+
     const data = {
       items: items,
       customer: localStorage.getItem('id'),
@@ -168,22 +174,21 @@ export class CheckoutComponent implements OnInit {
       payment_method: this.payment_method_id
     };
 
-
     this.checkoutService.checkout(data).subscribe(result => {
       localStorage.removeItem('cart')
+      console.log(result);
       setTimeout(() => {
+        if (result.status === 'e3182812-d1b0-4585-99bf-6510497602ab') {
+          window.location.href='http://localhost:4200/failed' 
+        }
         window.location.href='http://localhost:4200/success'
-      }, 5000)
+      }, 3000)
       
     }, (error) => {
       setTimeout(() => {
         window.location.href='http://localhost:4200/failed'
-      }, 5000)
+      }, 3000)
     });
- 
-
-
-
 
   }
 
@@ -192,15 +197,21 @@ export class CheckoutComponent implements OnInit {
   cash: boolean;
 
   paymentMethodSelected() {
-    if (this.selectedPaymentMethod === 'credit-card') {
+    if (this.selectedPaymentMethod === 'card') {
       this.creditcard = true;
-      this.cash = false
       this.payment_method_id = 'e0282812-d1b0-4585-99bf-6510497602ab'
-    } else if (this.selectedPaymentMethod === 'cash') {
-      this.creditcard = false;
-      this.cash = true
-      this.payment_method_id = 'e0982812-d1b0-4585-99bf-6510497602ab'
-    }
+    } 
+  }
+
+  cardNumberFormatted: string = '';
+
+  formatCardNumber(event: any) {
+    let inputValue = event.target.value as string;
+    inputValue = inputValue.replace(/\D/g, ''); // Remove non-digit characters
+    inputValue = inputValue.slice(0, 16); // Limit input to 19 characters (16 digits + 3 hyphens)
+    const cardNumberGroups = inputValue.match(/.{1,4}/g);
+    this.cardNumberFormatted = cardNumberGroups ? cardNumberGroups.join('-') : '';
+    event.target.value = this.cardNumberFormatted; // Update the input value
   }
 
 }
