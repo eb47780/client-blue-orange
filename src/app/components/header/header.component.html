@@ -64,13 +64,13 @@
               </button>
               <button mat-menu-item (click)="logout()">
                 <mat-icon class="text-gray-600" aria-hidden="false" aria-label="Logout icon">exit_to_app</mat-icon>
-                <span class="ml-2">Logout</span>
+                <span class="ml-2">Sign out</span>
               </button>
             </div>
           </mat-menu>
         </ng-container>
         <ng-container *ngIf="!(user$ | async)">
-          <a routerLink="login" class="ml-2 text-sm hover:text-gray-800 font-medium">Sign in</a>
+          <a routerLink="login" class="ml-2 text-sm hover:text-gray-800 font-medium">Sign In</a>
         </ng-container>
       </div>
 </mat-toolbar>
