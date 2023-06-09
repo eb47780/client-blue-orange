@@ -9,13 +9,13 @@
       >shopping_cart</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <div class="p-3 divide-y divide-solid">
+    <div class="p-3 divide-y divide-solid" *ngIf="cart.items.length > 0">
+      
       <div class="pb-3">
         <span *ngIf="cart.items.length > 1" class="mr-16">{{ cart.items.length }} Items</span>
         <span *ngIf="cart.items.length == 1" class="mr-16">{{ cart.items.length }} Item</span>
         <a *ngIf="cart.items.length > 1"  routerLink="cart">View Cart</a>
         <a *ngIf="cart.items.length == 0">Your Cart is empty</a>
-
       </div>
       <div *ngIf="cart.items.length" class="py-3">
         <div
@@ -46,6 +46,21 @@
         >
           <mat-icon>shopping_cart_checkout</mat-icon>
         </button>
+        <div class="float-right" style="display: flex; align-items: center;">
+          <mat-icon
+            (click)="onCheckout()"
+            class="mat-icon-inline"
+            style="cursor: pointer; font-size: 24px; color: #555;"
+          >
+            shopping_bag
+          </mat-icon>
+          <span class="mat-body-1" style="margin-left: 5px;">Checkout</span>
+        </div>
+      </div>
+    </div>
+    <div class="p-3 divide-y divide-solid" *ngIf="cart.items.length == 0"> 
+      <div class="pb-3">
+        <a *ngIf="cart.items.length === 0" class="mat-body-1" style="color: #0a0000; margin-top: 10px;">Your Cart is empty</a>
       </div>
     </div>
   </mat-menu>

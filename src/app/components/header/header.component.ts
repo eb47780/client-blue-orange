@@ -56,4 +56,8 @@ export class HeaderComponent {
     window.location.href="http://localhost:4200/home"
 
   }
+  
+  onCheckout(): void {
+    window.location.href='http://localhost:4200/checkout'
+  }
 }
