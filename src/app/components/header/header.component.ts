@@ -54,6 +54,8 @@ export class HeaderComponent {
   navigateToProfile() {
     this.router.navigate(['user/'], {relativeTo: this.activatedRoute});
   }
-
-
+  
+  onCheckout(): void {
+    window.location.href='http://localhost:4200/checkout'
+  }
 }
