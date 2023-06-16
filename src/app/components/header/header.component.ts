@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Observable, map, switchMap } from 'rxjs';
+import { Component, Input,  } from '@angular/core';
+import { ActivatedRoute,Router } from '@angular/router';
+import { Observable, } from 'rxjs';
 import { Cart, CartItem } from 'src/app/models/cart.model';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
