@@ -26,10 +26,9 @@ export class HeaderComponent {
     return this._cart;
   }
 
-  set cart(cart: Cart) {
-    this._cart = cart;
-
-    this.itemsQuantity = cart.items.map((item) => item.quantity).reduce((prev, curent) => prev + curent, 0);
+  set cart(cartItem: Cart) {
+    this._cart = cartItem;
+    this.itemsQuantity = cartItem.items.map((item) => item.quantity).reduce((prev, curent) => prev + curent, 0);
   }
 
   constructor(private cartService: CartService, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router, private authService: AuthService) {}
@@ -54,7 +53,7 @@ export class HeaderComponent {
   navigateToProfile() {
     this.router.navigate(['user/'], {relativeTo: this.activatedRoute});
   }
-  
+
   onCheckout(): void {
     window.location.href='http://localhost:4200/checkout'
   }
