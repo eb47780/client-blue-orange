@@ -30,7 +30,6 @@ export class CartService {
     this.cart.next({ items });
     this._snackBar.open('1 item added to cart.', 'Ok', { duration: 3000 });
 
-    // Save cart data to local storage
     localStorage.setItem('cart', JSON.stringify(this.cart.value));
   }
 
@@ -45,7 +44,6 @@ export class CartService {
         duration: 3000,
       });
 
-      // Save cart data to local storage
       localStorage.setItem('cart', JSON.stringify(this.cart.value));
     }
 
@@ -75,7 +73,6 @@ export class CartService {
       duration: 3000,
     });
 
-    // Save cart data to local storage
     localStorage.setItem('cart', JSON.stringify(this.cart.value));
   }
 
@@ -85,7 +82,6 @@ export class CartService {
       this._snackBar.open('Cart is cleared.', 'Ok', {
         duration: 3000,
       });
-      // Remove cart data from local storage
       localStorage.removeItem('cart');
     }else{
       this.cart.next({ items: [] });
@@ -93,7 +89,6 @@ export class CartService {
         duration: 3000,
       });
 
-      // Remove cart data from local storage
       localStorage.removeItem('cart');
     }
   }
