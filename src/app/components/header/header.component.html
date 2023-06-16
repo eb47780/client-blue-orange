@@ -10,7 +10,7 @@
   </button>
   <mat-menu #menu="matMenu">
     <div class="p-3 divide-y divide-solid" *ngIf="cart.items.length > 0">
-      
+
       <div class="pb-3">
         <span *ngIf="cart.items.length > 1" class="mr-16">{{ cart.items.length }} Items</span>
         <span *ngIf="cart.items.length == 1" class="mr-16">{{ cart.items.length }} Item</span>
@@ -58,9 +58,9 @@
         </div>
       </div>
     </div>
-    <div class="p-3 divide-y divide-solid" *ngIf="cart.items.length == 0"> 
+    <div class="p-3 divide-y divide-solid" *ngIf="cart.items.length == 0">
       <div class="pb-3">
-        <a *ngIf="cart.items.length === 0" class="mat-body-1" style="color: #0a0000; margin-top: 10px;">Your Cart is empty</a>
+        <a *ngIf="cart.items.length === 0" class="mat-body-1" style="color: #0a0000; margin-top: 10px;">Your Cart is Empty</a>
       </div>
     </div>
   </mat-menu>
@@ -79,7 +79,7 @@
               </button>
               <button mat-menu-item (click)="logout()">
                 <mat-icon class="text-gray-600" aria-hidden="false" aria-label="Logout icon">exit_to_app</mat-icon>
-                <span class="ml-2">Sign out</span>
+                <span class="ml-2">Sign Out</span>
               </button>
             </div>
           </mat-menu>
