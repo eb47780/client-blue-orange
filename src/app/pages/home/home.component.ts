@@ -70,29 +70,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  // testList: any = [{
-  //   id: 1,
-  //   title: 'Dorant',
-  //   price: 2.5,
-  //   category: {
-  //     id: "1",
-  //     name: "Sport",
-  //     slug: "test"
-  //   },
-  //   description: 'text',
-  //   image: '../../',
-  // },{
-  //   id: 2,
-  //   title: 'Dorant',
-  //   price: 2.5,
-  //   category: {
-  //     id: "1",
-  //     name: "Sport",
-  //     slug: "test"
-  //   },
-  //   description: 'text',
-  //   image: '../../',
-  // }]
 
   onAddToCart(product: Product): void {
     this.cartService.addToCart({
