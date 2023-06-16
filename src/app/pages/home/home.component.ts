@@ -13,7 +13,7 @@ const ROWS_HEIGHT: { [id: number]: number } = { 1: 400, 3: 335, 4: 350 };
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  message = 'You are not logged in';
+  message = 'You Are  Not Logged In';
   cols = 3;
   rowHeight: number = ROWS_HEIGHT[this.cols];
   products: Array<Product> | undefined;
