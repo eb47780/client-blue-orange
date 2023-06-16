@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   })
 
   delay(message: number) {
-    return new Promise( resolve => setTimeout(resolve, message) );
+    return new Promise( resolve => setTimeout(resolve, message));
   }
   onLogin() {
     if (!this.loginForm.valid) {
