@@ -69,8 +69,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
       });
   }
-
-
   onAddToCart(product: Product): void {
     this.cartService.addToCart({
       product: product.image,
