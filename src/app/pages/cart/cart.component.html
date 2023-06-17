@@ -6,7 +6,7 @@
         <img src="{{ element.product }}" alt="product" class="w-[100px] my-5" />
       </td>
       <td mat-footer-cell *matFooterCellDef>
-        <button mat-raised-button routerLink="/home">Continue Shopping</button>
+        <button mat-raised-button routerLink="/home">Continue Shopping!</button>
       </td>
     </ng-container>
     <ng-container matColumnDef="name">
@@ -35,7 +35,7 @@
       <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
     <ng-container matColumnDef="total">
-      <th mat-header-cell *matHeaderCellDef>Total</th>
+      <th mat-header-cell *matHeaderCellDef>Total:</th>
       <td mat-cell *matCellDef="let element">
         {{ element.quantity * element.price | currency }}
       </td>
