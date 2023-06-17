@@ -1,11 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Cart, CartItem } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/services/cart.service';
 import { Subscription } from 'rxjs';
-import { CheckoutService } from 'src/app/services/checkout.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cart',
